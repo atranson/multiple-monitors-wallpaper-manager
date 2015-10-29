@@ -1,5 +1,6 @@
-from parameters import workingPath
-import re
+import os
+
+workingPath = os.path.dirname(os.path.realpath(__file__)) + "\\"
 
 output = 'Windows Registry Editor Version 5.00 \n\
 \n\
