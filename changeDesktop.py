@@ -2,6 +2,7 @@ import os
 from functions import *
 from parameters import *
 from updateList import *
+from monitorInfo import getMonitorsAreas
 
 updateList()
 fullData = loadData()
@@ -11,7 +12,7 @@ def choosePictures(data, root, isLeaf=False):
 	
 	# If we are now chosing the pictures
 	if isLeaf:
-		filenames = weighted_choices(data, nbPerWallpaper, "singleton")
+		filenames = getWeightedChoices(data, nbPerWallpaper, "singleton")
 		fullNames = [os.path.join(root, filename) for filename in filenames]
 
 		# Decreasing weigths for used elements, increasing for unused elements
@@ -25,7 +26,7 @@ def choosePictures(data, root, isLeaf=False):
 	
 	# If we are choosing a folder
 	else:
-		subFolder = weighted_choices(data, 1, "couple")[0]
+		subFolder = getWeightedChoices(data, 1, "couple")[0]
 		
 		# Decreasing weigths for used elements, increasing for unused elements
 		for key, item in data.items():
@@ -42,7 +43,7 @@ def choosePictures(data, root, isLeaf=False):
 fullNames = choosePictures(fullData, path)
 
 # Generate output.jpg
-fusion(fullNames, screens)
+fusion(fullNames, getMonitorsAreas())
 
 saveData(fullData)
 

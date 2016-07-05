@@ -20,7 +20,7 @@ class MONITORINFO(ctypes.Structure):
 		('dwFlags', ctypes.c_ulong)
 		]
 
-def get_monitors():
+def getMonitors():
 	retval = []
 	CBFUNC = ctypes.WINFUNCTYPE(ctypes.c_int, ctypes.c_ulong, ctypes.c_ulong, ctypes.POINTER(RECT), ctypes.c_double)
 	def cb(hMonitor, hdcMonitor, lprcMonitor, dwData):
@@ -38,9 +38,9 @@ def get_monitors():
 # Return monitor areas in a list of triplet as follows:
 # (ID of the screen as returned by get_monitors, Actual rectangle of the screen in pixel, Work rectangle of the screen in pixel (without taskbars & cie))
 # Rectangles are defined as (left, top, right, bottom)
-def monitor_areas():
+def monitorAreas():
 	retval = []
-	monitors = get_monitors()
+	monitors = getMonitors()
 	for hMonitor, extents in monitors:
 		data = [hMonitor]
 		mi = MONITORINFO()
@@ -54,6 +54,14 @@ def monitor_areas():
 	return retval
 
 def getMonitorsAreas(workArea = False):
-	monitors = monitor_areas()
+	monitors = monitorAreas()
 	index = 2 if workArea else 1
 	return [list(m[index]) for m in monitors]
+	
+
+if __name__ == '__main__':
+	areas = getMonitorsAreas()
+	print("Detected monitors areas:")
+	print(areas)
+	print("Full area size:")
+	print((max([rectArea[2] for rectArea in areas]), max([rectArea[3] for rectArea in areas])))

@@ -2,7 +2,6 @@ import os
 
 # To be modified
 path = 'D:/Pictures/Wallpapers/' # Path to the current folder containing wallpapers
-screens = [(1920, 1080), (1920, 1080)] # (width, height)
 
 # DON'T MODIFY
 if(not(path.endswith("/")) and not(path.endswith("\\"))):
