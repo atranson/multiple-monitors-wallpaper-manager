@@ -1,7 +1,7 @@
 import json, random, os
 from PIL import Image, ImageFilter
 from math import floor
-from parameters import workingPath, token, nbPerWallpaper
+from parameters import workingPath, token
              
 def getFolderStructure(root):
 	# We list pictures and subfolders inside the specified folder
@@ -47,6 +47,7 @@ def fusion(filenames, screenAreas):
 	files = [Image.open(filename) for filename in filenames]
 	
 	# If we don't have enough files, we concatenate the list with itself until we have enough pictures
+	nbPerWallpaper = len(screenAreas)
 	if len(files) < nbPerWallpaper:
 		files = [elt for i in range(nbPerWallpaper // len(files) + 1 * nbPerWallpaper % len(files)) for elt in files][:nbPerWallpaper]
 	

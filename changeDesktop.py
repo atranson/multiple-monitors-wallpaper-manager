@@ -6,8 +6,9 @@ from monitorInfo import getMonitorsAreas
 
 updateList()
 fullData = loadData()
+monitorAreas = getMonitorsAreas()
 
-def choosePictures(data, root, isLeaf=False):
+def choosePictures(data, root, nbPerWallpaper, isLeaf=False):
 	nbElts = len(data)
 	
 	# If we are now chosing the pictures
@@ -35,15 +36,15 @@ def choosePictures(data, root, isLeaf=False):
 		data[subFolder][0] = 1/nbElts
 		
 		if subFolder == token:
-			return choosePictures(data[subFolder][1], root, True)
+			return choosePictures(data[subFolder][1], root, nbPerWallpaper, True)
 		else:
-			return choosePictures(data[subFolder][1], os.path.join(root, subFolder))
+			return choosePictures(data[subFolder][1], os.path.join(root, subFolder), nbPerWallpaper)
 		
 
-fullNames = choosePictures(fullData, path)
+fullNames = choosePictures(fullData, path, len(monitorAreas))
 
 # Generate output.jpg
-fusion(fullNames, getMonitorsAreas())
+fusion(fullNames, monitorAreas)
 
 saveData(fullData)
 
