@@ -1,9 +1,10 @@
-import os
+import os, sys
 
-# To be modified
-path = 'D:/Pictures/Wallpapers/' # Path to the current folder containing wallpapers
+try:
+	from localConfig import path
+except ModuleNotFoundError:
+	sys.exit("Error: no local configuration could be found. Make sure you ran the setup.py file first")
 
-# DON'T MODIFY
 if(not(path.endswith("/")) and not(path.endswith("\\"))):
 	path += "/"
 
